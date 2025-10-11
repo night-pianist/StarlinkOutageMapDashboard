@@ -1,0 +1,22 @@
+# node modules
+frontend/node_modules/
+
+# build outputs
+frontend/dist/
+frontend/build/
+
+# python cache files
+__pycache__/
+*.pyc
+
+# virtual environments
+venv/
+.env/
+
+# ignore datasets
+backend/data/
+*.csv
+*.json
+
+# OS metadata
+.DS_Store
