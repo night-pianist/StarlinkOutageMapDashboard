@@ -1,11 +1,12 @@
+// DASHBOARD.TSX
 import React, { useState } from "react";
 import MapComponent from "./Map";
 
-interface Location {
-  lat: number;
-  lng: number;
-  label: string;
-}
+// interface Location {
+//   lat: number;
+//   lng: number;
+//   label: string;
+// }
 
 const Dashboard: React.FC = () => {
 //   const [mapData, setMapData] = useState<Location[]>([]);
@@ -22,3 +23,4 @@ const Dashboard: React.FC = () => {
 
 
 export default Dashboard;
+

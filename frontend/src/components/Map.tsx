@@ -1,9 +1,9 @@
-// MapComponent.tsx
+// MAP.TSX
 import React, { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-const MapComponent: React.FC = () => {
+const Map: React.FC = () => {
   useEffect(() => {
     // bounds for vertical drag (horizontal wrap-around is fine)
     const southWest = L.latLng(-60, -360);
@@ -29,7 +29,13 @@ const MapComponent: React.FC = () => {
     };
   }, []);
 
-  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
+  return (
+    <div
+      id="map"
+      className="w-full h-full rounded-1xl"
+    ></div>
+  );
 };
 
-export default MapComponent;
+export default Map;
+
