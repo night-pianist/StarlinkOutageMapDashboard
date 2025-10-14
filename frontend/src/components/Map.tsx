@@ -13,7 +13,11 @@ interface OutageEntry {
 
 const outages = outageData as OutageEntry[];
 
-const Map: React.FC = () => {
+interface MapProps {
+  data: { country: string; ratio: number }[];
+}
+
+const Map: React.FC<MapProps> = ({ data }) => {
     useEffect(() => {
         // bounds for vertical drag (horizontal wrap-around is fine)
         const southWest = L.latLng(-60, -360);
@@ -91,6 +95,39 @@ const Map: React.FC = () => {
             });
         }
 
+        // add legend
+        const legend = new L.Control({ position: "bottomright" });
+
+        legend.onAdd = function (map: L.Map) {
+            const div = L.DomUtil.create("div", "info legend");
+            div.style.padding = "10px";
+            div.style.background = "white";
+            div.style.border = "1px solid #ccc";
+            div.style.borderRadius = "4px";
+
+            // add title
+            const title = L.DomUtil.create("div", "", div);
+            title.innerHTML = "<b>Outage Ratio</b>";
+
+            // add gradient bar
+            const gradient = L.DomUtil.create("div", "", div);
+            gradient.style.height = "20px";
+            gradient.style.width = "100%";
+            gradient.style.background = "linear-gradient(to right, #FFFFFF, #FFCCCC, #FF9999, #FF6666, #FF3333, #800000)";
+            gradient.style.margin = "5px 0";
+
+            // add min/max labels
+            const labels = L.DomUtil.create("div", "", div);
+            labels.style.display = "flex";
+            labels.style.justifyContent = "space-between";
+            labels.innerHTML = "<span>0</span><span>1</span>";
+
+            return div;
+        };
+
+        // add legend to map
+        legend.addTo(map);
+
         // load imported world GeoJSON
         L.geoJSON(geoJsonData as any, { style, onEachFeature }).addTo(map);
 
@@ -98,7 +135,7 @@ const Map: React.FC = () => {
             map.remove(); // cleanup on unmount
         };
         
-    }, []);
+    }, [data]);
 
     return (
     <div

@@ -40,9 +40,12 @@ def compute_outage_ratios(df: pd.DataFrame) -> pd.DataFrame:
 def format_for_frontend(df: pd.DataFrame) -> list[dict]:
     return df.to_dict(orient="records")
 
-# run it together on outages.csv
-if __name__ == "__main__":
-    filtered_df = load_and_filter_by_day("../outage_data/outages.csv", 2025, 5, 27, 2025, 5, 27)
+# run it together
+
+# run it together
+def get_ratios(csv_path: str, start_year: int, start_month: int, start_day: int,
+                end_year: int, end_month: int, end_day: int):
+    filtered_df = load_and_filter_by_day(csv_path, start_year, start_month, start_day, end_year, end_month, end_day)
     # filtered_df.to_csv("filtered_outages.csv", index=False) 
     # print(filtered_df.head(5)) # works
 
@@ -53,3 +56,7 @@ if __name__ == "__main__":
     # Save JSON to frontend folder
     output_path = "../../frontend/src/assets/ratio_outages.json" 
     country_ratios_df.to_json(output_path, orient="records", date_format="iso", indent=2)
+    
+if __name__ == "__main__":
+    get_ratios("../outage_data/outages.csv", 2025, 5, 27, 2025, 5, 27)
+    
